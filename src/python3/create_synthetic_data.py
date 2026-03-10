@@ -202,9 +202,14 @@ def main():
     parser.add_argument('--cat_weights', action='store', type=float, nargs='+', default=None, 
                         help="Class label sampling weights (class prevalence). For ncats=2, defaults to 0.80 class 0 and 0.20 class 1. example: --cat-weights 0.80 0.20")
     parser.add_argument('--folds', action='store', type=int, default=5, help="The number of folds for k-fold CV.")
+    parser.add_argument('--seed', action='store', type=int, default=None,
+                    help="Random seed for reproducibility")
     parser.add_argument('--noshapes', action='store_true', help="include at command line if you only want sequences produced.")
 
     args = parser.parse_args()
+    
+    if args.seed is not None:
+        np.random.seed(args.seed)
 
     folds = args.folds
     dtype = args.dtype
